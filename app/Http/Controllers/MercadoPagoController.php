@@ -186,7 +186,7 @@ class MercadoPagoController extends Controller
 
     public function webhook(Request $request)
     {
-        
+        Log::info('chegou aqui');
         $this->validateSignature($request);
 
         $payment_id = isset($request->data['id']) ? $request->data['id'] : null;
@@ -195,18 +195,21 @@ class MercadoPagoController extends Controller
             $query->where('external_reference', $payment_id);
         }])->first();
 
+        Log::info('passou aqui');
         if (!$user) {
             return;
         }
-
+        
         try {
             DB::beginTransaction();
+            Log::info('teste');
             $access_token = env('MP_ACCESS_TOKEN');
             $unique_id = uniqid();
             MercadoPagoConfig::setAccessToken($access_token);
             $request_options = new RequestOptions();
             $request_options->setCustomHeaders(["X-Idempotency-Key: {$unique_id}"]);
             
+            Log::info('xd');
             $client = new PaymentClient();
             $payment = $client->get($payment_id, $request_options);
             if ($payment->status === 'approved') {
@@ -219,9 +222,11 @@ class MercadoPagoController extends Controller
                 }
                 
                 DB::table('plan_user')
-                        ->where('external_reference', $payment_id)->update(['expires_at' => $new_time, 'updated_at' => now()]);
-
+                ->where('external_reference', $payment_id)->update(['expires_at' => $new_time, 'updated_at' => now()]);
+                Log::info('aaa');
+                
                 Mail::to($user->email)->send(new PlanPaid());
+                Log::info('email');
                 DB::commit();
             }
         } catch (\Throwable $th) {
