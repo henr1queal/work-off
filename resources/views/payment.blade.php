@@ -372,7 +372,7 @@
                                                         alert('Você será redirecionado para seu QR Code.')
                                                         setTimeout(() => {
                                                             window.location.href = "{{ route('user', ['user_id' => $user_id, 'qr_code' => true]) }}";
-                                                        }, 1001);                              
+                                                        }, 1000);                              
                                                     }, 1000);
                                                 },
                                                 onError: (error) => {},
