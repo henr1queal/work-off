@@ -174,7 +174,6 @@ class MercadoPagoController extends Controller
 
     public function webhook(Request $request)
     {
-        Log::info('Webhook recebido');
 
         // Validação da assinatura
         $this->validateSignature($request);
@@ -184,7 +183,6 @@ class MercadoPagoController extends Controller
 
         // Verifica se o ID do pagamento está presente
         if (!$payment_id) {
-            Log::error('ID de pagamento não encontrado no webhook');
             return response()->json(['message' => 'ID de pagamento não encontrado'], 400);
         }
 
@@ -194,7 +192,6 @@ class MercadoPagoController extends Controller
         }])->first();
 
         if (!$user) {
-            Log::error('Usuário não encontrado para o pagamento: ' . $payment_id);
             return;
         }
 
@@ -222,15 +219,20 @@ class MercadoPagoController extends Controller
                 }
 
                 // Atualiza a tabela de relacionamento entre planos e usuários
-                DB::table('plan_user')
+                $affectedRows = DB::table('plan_user')
                     ->where('external_reference', $payment_id)
+                    ->where('expires_at', null)
                     ->update(['expires_at' => $new_time, 'updated_at' => now()]);
 
-                // Envia e-mail de confirmação
-                Mail::to($user->email)->send(new PlanPaid());
+                // Só envia o e-mail de confirmação se alguma linha foi atualizada
+                if ($affectedRows > 0) {
+                    Mail::to($user->email)->send(new PlanPaid());
+                    Log::info('E-mail de confirmação enviado para: ' . $user->email);
+                } else {
+                    Log::info('Tentativa de fraude ' . $user->email);
+                }
 
                 DB::commit();
-                Log::info('Pagamento processado e usuário atualizado: ' . $user->email);
             } else {
                 Log::info('Pagamento não aprovado: ' . $payment->status);
             }
@@ -245,7 +247,8 @@ class MercadoPagoController extends Controller
         $xSignature = $request->header('X-Signature');
         $xRequestId = $request->header('X-Request-Id');
         $queryParams = $request->query();
-        $dataID = isset($queryParams['data.id']) ? $queryParams['data.id'] : '';
+
+        $dataID = isset($queryParams['data_id']) ? $queryParams['data_id'] : '';
 
         // Separar a assinatura
         $parts = explode(',', $xSignature);
@@ -265,6 +268,7 @@ class MercadoPagoController extends Controller
             }
         }
 
+
         $secret = env('MP_SECRET');
 
         $manifest = "id:$dataID;request-id:$xRequestId;ts:$ts;";
@@ -272,10 +276,7 @@ class MercadoPagoController extends Controller
         $sha = hash_hmac('sha256', $manifest, $secret);
 
         if ($sha !== $hash) {
-            Log::error('Assinatura HMAC inválida');
             abort(403, 'Assinatura inválida');
         }
-
-        Log::info('Assinatura HMAC válida');
     }
 }
