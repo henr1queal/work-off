@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/processar-pagamento/{user_id}', [MercadoPagoController::class, 'process'])->name('payment.process');
 // Route::post('/webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
-Route::get('/mercado-pago-webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
+Route::post('/mercado-pago-webhook', [MercadoPagoController::class, 'webhook'])->name('webhook');
 
