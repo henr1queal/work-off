@@ -230,6 +230,8 @@ class MercadoPagoController extends Controller
                 $pivotData->updated_at = now();
                 $pivotData->save();
 
+                Mail::to($user->email)->send(new PlanPaid());
+
                 DB::commit();
             } else {
                 Log::info('Pagamento não aprovado: ' . $payment->status);
