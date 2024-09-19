@@ -103,7 +103,7 @@ class MercadoPagoController extends Controller
                 "description" => $choosedPlan->days . ' dias',
                 "payment_method_id" => $request->payment_method_id,
                 "external_reference" => $choosedPlan->id,
-                'notification_url' => 'https://webhook.site/2ab5f193-a6c2-429d-9fad-e69c6de3c617',
+                'notification_url' => route('webhook'),
                 "payer" => [
                     "email" => $request->payer['email'],
                 ]
@@ -126,7 +126,7 @@ class MercadoPagoController extends Controller
                 "payment_method_id" => $request->payment_method_id,
                 "external_reference" => $choosedPlan->id,
                 "issuer_id" => $request->issuer_id,
-                'notification_url' => 'https://webhook.site/2ab5f193-a6c2-429d-9fad-e69c6de3c617',
+                'notification_url' => route('webhook'),
                 "payer" => [
                     "email" => $request->payer['email'],
                     "identification" => [
@@ -149,7 +149,7 @@ class MercadoPagoController extends Controller
             "description" => $choosedPlan->days . ' dias',
             "payment_method_id" => $request->payment_method_id,
             "external_reference" => $choosedPlan->id,
-            'notification_url' => 'https://webhook.site/2ab5f193-a6c2-429d-9fad-e69c6de3c617',
+            'notification_url' => route('webhook'),
             "payer" => [
                 "email" => $request->payer['email'],
                 "first_name" => $request->payer['first_name'],
