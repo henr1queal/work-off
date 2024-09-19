@@ -188,8 +188,10 @@ class MercadoPagoController extends Controller
 
         // Busca o usuário associado ao pagamento
         $user = User::with(['plans' => function ($query) use ($payment_id) {
-            $query->where('external_reference', $payment_id);
+            $query->wherePivot('external_reference', $payment_id);
         }])->first();
+
+        Log::info($user);
 
         if (!$user) {
             return;
