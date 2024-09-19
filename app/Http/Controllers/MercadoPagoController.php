@@ -186,12 +186,18 @@ class MercadoPagoController extends Controller
             return response()->json(['message' => 'ID de pagamento não encontrado'], 400);
         }
 
-        // Busca o usuário associado ao pagamento
-        $user = User::with(['plans' => function ($query) use ($payment_id) {
+        $planWithUser = Plan::whereHas('users', function ($query) use ($payment_id) {
             $query->wherePivot('external_reference', $payment_id);
-        }])->first();
+        })
+            ->with(['users' => function ($query) use ($payment_id) {
+                $query->wherePivot(['external_reference' => $payment_id, 'expires_at' => null])
+                    ->orderBy('plan_user.created_at', 'desc')
+                    ->limit(1);
+            }])
+            ->first();
 
-        Log::info($user);
+        $user = $planWithUser->users->first();
+        $pivotData = $user->pivot;
 
         if (!$user) {
             return;
@@ -220,19 +226,9 @@ class MercadoPagoController extends Controller
                     $new_time = now()->addDays(365);
                 }
 
-                // Atualiza a tabela de relacionamento entre planos e usuários
-                $affectedRows = DB::table('plan_user')
-                    ->where('external_reference', $payment_id)
-                    ->where('expires_at', null)
-                    ->update(['expires_at' => $new_time, 'updated_at' => now()]);
-
-                // Só envia o e-mail de confirmação se alguma linha foi atualizada
-                if ($affectedRows > 0) {
-                    Mail::to($user->email)->send(new PlanPaid());
-                    Log::info('E-mail de confirmação enviado para: ' . $user->email);
-                } else {
-                    Log::info('Tentativa de fraude ' . $user->email);
-                }
+                $pivotData->expires_at = $new_time;
+                $pivotData->updated_at = now();
+                $pivotData->save();
 
                 DB::commit();
             } else {
