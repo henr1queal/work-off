@@ -172,47 +172,47 @@ class MercadoPagoController extends Controller
         return $payment;
     }
 
-    private function validateSignature(Request $request)
-    {
-        $mpToken = env('MERCADO_PAGO_ACCESS_TOKEN');
-
-        $receivedSignature = $request->header('X-Mercadopago-Signature');
-
-        if (!$receivedSignature || $receivedSignature !== hash_hmac('sha256', $request->getContent(), $mpToken)) {
-            Log::error('Assinatura inválida do webhook do Mercado Pago');
-            abort(403, 'Assinatura inválida');
-        }
-    }
-
     public function webhook(Request $request)
     {
-        Log::info('chegou aqui');
+        Log::info('Webhook recebido');
+
+        // Validação da assinatura
         $this->validateSignature($request);
 
+        // Obter o ID do pagamento a partir da requisição
         $payment_id = isset($request->data['id']) ? $request->data['id'] : null;
 
+        // Verifica se o ID do pagamento está presente
+        if (!$payment_id) {
+            Log::error('ID de pagamento não encontrado no webhook');
+            return response()->json(['message' => 'ID de pagamento não encontrado'], 400);
+        }
+
+        // Busca o usuário associado ao pagamento
         $user = User::with(['plans' => function ($query) use ($payment_id) {
             $query->where('external_reference', $payment_id);
         }])->first();
 
-        Log::info('passou aqui');
         if (!$user) {
+            Log::error('Usuário não encontrado para o pagamento: ' . $payment_id);
             return;
         }
-        
+
         try {
             DB::beginTransaction();
-            Log::info('teste');
+
             $access_token = env('MP_ACCESS_TOKEN');
             $unique_id = uniqid();
             MercadoPagoConfig::setAccessToken($access_token);
             $request_options = new RequestOptions();
             $request_options->setCustomHeaders(["X-Idempotency-Key: {$unique_id}"]);
-            
-            Log::info('xd');
+
             $client = new PaymentClient();
             $payment = $client->get($payment_id, $request_options);
+
+            // Verificação se o pagamento foi aprovado
             if ($payment->status === 'approved') {
+                // Define o tempo de renovação do plano baseado no external_reference
                 if ($payment->external_reference == 1) {
                     $new_time = now()->addDays(30);
                 } else if ($payment->external_reference == 2) {
@@ -220,18 +220,62 @@ class MercadoPagoController extends Controller
                 } else {
                     $new_time = now()->addDays(365);
                 }
-                
+
+                // Atualiza a tabela de relacionamento entre planos e usuários
                 DB::table('plan_user')
-                ->where('external_reference', $payment_id)->update(['expires_at' => $new_time, 'updated_at' => now()]);
-                Log::info('aaa');
-                
+                    ->where('external_reference', $payment_id)
+                    ->update(['expires_at' => $new_time, 'updated_at' => now()]);
+
+                // Envia e-mail de confirmação
                 Mail::to($user->email)->send(new PlanPaid());
-                Log::info('email');
+
                 DB::commit();
+                Log::info('Pagamento processado e usuário atualizado: ' . $user->email);
+            } else {
+                Log::info('Pagamento não aprovado: ' . $payment->status);
             }
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error($th->getMessage());
+            Log::error('Erro ao processar o pagamento: ' . $th->getMessage());
         }
+    }
+
+    private function validateSignature(Request $request)
+    {
+        $xSignature = $request->header('X-Signature');
+        $xRequestId = $request->header('X-Request-Id');
+        $queryParams = $request->query();
+        $dataID = isset($queryParams['data.id']) ? $queryParams['data.id'] : '';
+
+        // Separar a assinatura
+        $parts = explode(',', $xSignature);
+        $ts = null;
+        $hash = null;
+
+        foreach ($parts as $part) {
+            $keyValue = explode('=', $part, 2);
+            if (count($keyValue) == 2) {
+                $key = trim($keyValue[0]);
+                $value = trim($keyValue[1]);
+                if ($key === "ts") {
+                    $ts = $value;
+                } elseif ($key === "v1") {
+                    $hash = $value;
+                }
+            }
+        }
+
+        $secret = env('MP_SECRET');
+
+        $manifest = "id:$dataID;request-id:$xRequestId;ts:$ts;";
+
+        $sha = hash_hmac('sha256', $manifest, $secret);
+
+        if ($sha !== $hash) {
+            Log::error('Assinatura HMAC inválida');
+            abort(403, 'Assinatura inválida');
+        }
+
+        Log::info('Assinatura HMAC válida');
     }
 }
