@@ -257,7 +257,7 @@
         <div class="container bg-transparent">
             <div class="row justify-content-end align-items-center">
                 <div class="col-12 col-lg-4 text-center">
-                    <p class="mb-0 text-white">Work Off — 2024.</p>
+                    <p class="mb-0 text-white">Work Off — {{ date('Y') }}.</p>
                 </div>
                 <div class="col-12 col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end align-items-center">
