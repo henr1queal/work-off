@@ -173,7 +173,7 @@
 
 <body>
     @if (!isset($user))
-        <div class="my-3 my-lg-5">
+        <div class="my-5">
             <div class="container">
                 <div class="row">
                     <div class="col text-center text-light">
