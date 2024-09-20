@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $user->name }} - Work Off</title>
+    <title>{{ $name }} - Work Off</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -172,136 +172,154 @@
 </head>
 
 <body>
-    @if (isset(request()->query()['qr_code']))
+    @if (!isset($user))
         <div class="my-3 my-lg-5">
             <div class="container">
                 <div class="row">
-                    <div class="col text-center">
-                        
-                        <span class="text-white"><a id="downloadLink" class="d-inline">Clique aqui</a> para baixar o QR Code e começar a <strong class="text-success">ganhar mais dinheiro</strong>!</span>
-                        <div class="rounded-3 p-3 bg-white mt-3 mx-auto" style="width: fit-content;">
-                            <div id="qrcode"></div>
-                        </div>
-                        <br><span class="text-white">Caso tenha alguma dúvida, envie um e-mail para <a href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></span>
-                        <br><small class="text-white">**QR code visível apenas por {{ $user->name }}.</small>
+                    <div class="col text-center text-light">
+                        <img src="{{ asset('/images/core/logo.png') }}" alt="Work Off" style="max-width: 160px;">
+                        <h5 class="mt-5">{{ $name }} está sem um plano ativo!</h5>                        
+                        <h5 class="mt-4">Caso precise reativá-lo, basta <a href="{{ route('home') }}">clicar aqui</a> e efetuar novamente o pagamento com o e-mail registrado anteriormente.</h5>
+                        <h6 class="mt-5">Se tiver alguma dúvida, entrar em contato com <a href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></h6>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
-    <div class="profile-container">
-        <div class="profile-header">
-            <img src="{{ asset('images/' . ($user->image ? $user->image : 'core/avatar.png')) }}"
-                alt="Foto do Motorista" class="profile-img">
-            <h1 class="profile-name">{{ $user->name }}</h1>
-            <h4>{{ \Carbon\Carbon::parse($user->birthdate)->age }} anos</h4>
-            <hr class="w-25 mx-auto mb-1">
-            <p class="profile-description mb-0">{{ $user->message }}</p>
-        </div>
-        <div class="profile-body">
-            <div class="row">
-                @if ($user->phones)
-                    <div class="col-12 col-lg text-center text-lg-start">
-                        <div class="info-card shadow h-100">
-                            <div class="info-icon mb-1"><i class="fas fa-mobile-alt"></i></div>
-                            <div class="mb-2"><span class="text-black fw-medium">Contato(s):</span></div>
-                            @foreach ($user->phones as $phone)
-                                <div
-                                    class="info-content d-flex justify-content-center justify-content-lg-start gap-2 @if (!$loop->last) mb-3 mb-lg-2 @endif">
-                                    <div>
-                                        <span class="me-2">{{ $phone->phone }}</span>
-                                    </div>
-                                    @if ($phone->is_whatsapp === 0)
-                                        <div class="col-lg">
-                                            <button title="Ligar" type="button" class="btn btn-sm btn-primary px-2">
-                                                <i class="fas fa-phone-volume"></i>
-                                            </button>
-                                        </div>
-                                    @else
+    @else
+        @if (isset(request()->query()['qr_code']))
+            <div class="my-3 my-lg-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+
+                            <span class="text-white"><a id="downloadLink" class="d-inline">Clique aqui</a> para baixar o
+                                QR Code e começar a <strong class="text-success">ganhar mais dinheiro</strong>!</span>
+                            <div class="rounded-3 p-3 bg-white mt-3 mx-auto" style="width: fit-content;">
+                                <div id="qrcode"></div>
+                            </div>
+                            <br><span class="text-white">Caso tenha alguma dúvida, envie um e-mail para <a
+                                    href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></span>
+                            <br><small class="text-white">**QR code visível apenas por {{ $user->name }}.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="{{ asset('images/' . ($user->image ? $user->image : 'core/avatar.png')) }}"
+                    alt="Foto do Motorista" class="profile-img">
+                <h1 class="profile-name">{{ $user->name }}</h1>
+                <h4>{{ \Carbon\Carbon::parse($user->birthdate)->age }} anos</h4>
+                <hr class="w-25 mx-auto mb-1">
+                <p class="profile-description mb-0">{{ $user->message }}</p>
+            </div>
+            <div class="profile-body">
+                <div class="row">
+                    @if ($user->phones)
+                        <div class="col-12 col-lg text-center text-lg-start">
+                            <div class="info-card shadow h-100">
+                                <div class="info-icon mb-1"><i class="fas fa-mobile-alt"></i></div>
+                                <div class="mb-2"><span class="text-black fw-medium">Contato(s):</span></div>
+                                @foreach ($user->phones as $phone)
+                                    <div
+                                        class="info-content d-flex justify-content-center justify-content-lg-start gap-2 @if (!$loop->last) mb-3 mb-lg-2 @endif">
                                         <div>
-                                            <a href="tel:{{ $phone->phone }}" title="Ligar" type="button"
-                                                class="btn btn-sm btn-primary px-2">
-                                                <i class="fas fa-phone-volume"></i>
-                                            </a>
-                                            |
-                                            <a href="https://wa.me/{{ preg_replace('/\D/', '', $phone->phone) }}"
-                                                target="_blank" title="WhatsApp" type="button"
-                                                class="btn btn-sm btn-success px-2">
-                                                <i class="fab fa-whatsapp"></i>
-                                            </a>
+                                            <span class="me-2">{{ $phone->phone }}</span>
                                         </div>
-                                    @endif
+                                        @if ($phone->is_whatsapp === 0)
+                                            <div class="col-lg">
+                                                <button title="Ligar" type="button"
+                                                    class="btn btn-sm btn-primary px-2">
+                                                    <i class="fas fa-phone-volume"></i>
+                                                </button>
+                                            </div>
+                                        @else
+                                            <div>
+                                                <a href="tel:{{ $phone->phone }}" title="Ligar" type="button"
+                                                    class="btn btn-sm btn-primary px-2">
+                                                    <i class="fas fa-phone-volume"></i>
+                                                </a>
+                                                |
+                                                <a href="https://wa.me/{{ preg_replace('/\D/', '', $phone->phone) }}"
+                                                    target="_blank" title="WhatsApp" type="button"
+                                                    class="btn btn-sm btn-success px-2">
+                                                    <i class="fab fa-whatsapp"></i>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                    @if ($user->pix)
+                        <div class="col-12 col-lg mt-3 mt-lg-0 text-center text-lg-start">
+                            <div class="info-card shadow h-100">
+                                <div class="info-icon mb-1"><i class="fas fa-money-bill-wave"></i></div>
+                                <div class="mb-2"><span class="text-black fw-medium">Chave Pix</span></div>
+                                <div class="info-content">
+                                    <button class="btn btn-outline-primary ms-0" onclick="copyPix()">Copiar chave
+                                        Pix</button>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-                @if ($user->pix)
-                    <div class="col-12 col-lg mt-3 mt-lg-0 text-center text-lg-start">
-                        <div class="info-card shadow h-100">
-                            <div class="info-icon mb-1"><i class="fas fa-money-bill-wave"></i></div>
-                            <div class="mb-2"><span class="text-black fw-medium">Chave Pix</span></div>
-                            <div class="info-content">
-                                <button class="btn btn-outline-primary ms-0" onclick="copyPix()">Copiar chave
-                                    Pix</button>
                             </div>
                         </div>
-                    </div>
-                @endif
-                @if ($user->instagram)
-                    <div class="col-12 col-lg mt-3 mt-lg-0 text-center text-lg-start">
-                        <div class="info-card shadow h-100">
-                            <div class="info-icon mb-1"><i class="fab fa-instagram"></i></div>
-                            <div class="mb-2"><span class="text-black fw-medium">Instagram:</span></div>
-                            <div class="info-content">
-                                <a href="https://instagram.com/{{ $user->instagram->username }}" target="_blank"
-                                    rel="noopener noreferrer">
-                                    {{ '@' . $user->instagram->username }} <svg xmlns="http://www.w3.org/2000/svg"
-                                        width="16" height="16" fill="currentColor"
-                                        class="bi bi-box-arrow-up-right ms-2 mb-1" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
-                                        <path fill-rule="evenodd"
-                                            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
-                                    </svg>
-                                </a>
+                    @endif
+                    @if ($user->instagram)
+                        <div class="col-12 col-lg mt-3 mt-lg-0 text-center text-lg-start">
+                            <div class="info-card shadow h-100">
+                                <div class="info-icon mb-1"><i class="fab fa-instagram"></i></div>
+                                <div class="mb-2"><span class="text-black fw-medium">Instagram:</span></div>
+                                <div class="info-content">
+                                    <a href="https://instagram.com/{{ $user->instagram->username }}" target="_blank"
+                                        rel="noopener noreferrer">
+                                        {{ '@' . $user->instagram->username }} <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="16" height="16" fill="currentColor"
+                                            class="bi bi-box-arrow-up-right ms-2 mb-1" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
+                                            <path fill-rule="evenodd"
+                                                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        function copyPix() {
-            const pixKey = '{{ $user->pix->key }}';
-            navigator.clipboard.writeText(pixKey).then(function() {
-                alert('Chave Pix copiada!');
-            }, function(err) {
-                console.error('Erro ao copiar: ', err);
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+            integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            function copyPix() {
+                const pixKey = '{{ $user->pix->key }}';
+                navigator.clipboard.writeText(pixKey).then(function() {
+                    alert('Chave Pix copiada!');
+                }, function(err) {
+                    console.error('Erro ao copiar: ', err);
+                });
+            }
+        </script>
+        <script>
+            const qrCodeElement = document.getElementById("qrcode");
+            const qrCode = new QRCode(qrCodeElement, {
+                text: "{{ route('user', $user->id) }}",
+                width: 350,
+                height: 350,
+                correctLevel: QRCode.CorrectLevel.H,
+                render: "canvas"
             });
-        }
-    </script>
-    <script>
-        const qrCodeElement = document.getElementById("qrcode");
-        const qrCode = new QRCode(qrCodeElement, {
-            text: "{{ route('user', $user->id) }}",
-            width: 350,
-            height: 350,
-            correctLevel: QRCode.CorrectLevel.H,
-            render: "canvas"
-        });
 
-        qrCodeElement.querySelector('canvas').toBlob(function(blob) {
-            const downloadLink = document.getElementById('downloadLink');
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = 'qrcode.png';
-            downloadLink.style.display = 'block';
-        });
-    </script>
+            qrCodeElement.querySelector('canvas').toBlob(function(blob) {
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = 'qrcode.png';
+                downloadLink.style.display = 'block';
+            });
+        </script>
+    @endif
 </body>
 
 </html>

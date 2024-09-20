@@ -261,7 +261,7 @@
                 </div>
                 <div class="col-12 col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end align-items-center">
-                        <a class="external-links" href="http://" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank" rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-instagram text-white" viewBox="0 0 16 16">
                                 <path
@@ -270,7 +270,7 @@
                             </svg>
                         </a>
                         <div class="vr text-white" style="opacity: 1;"></div>
-                        <a class="external-links" href="http://" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank" rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                 class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                 <path

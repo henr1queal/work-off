@@ -80,7 +80,7 @@
     <div id="nav-spacing"></div>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid" style="max-width: 1320px;">
-            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('/storage/images/core/logo.png') }}"
+            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('/images/core/logo.png') }}"
                     alt="" class="img-fluid" style="max-width: 80px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -297,7 +297,7 @@
                 </div>
                 <div class="col-12 col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end align-items-center">
-                        <a class="external-links" href="http://" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="https://www.instagram.com/workoff.com.br/" target="_blank" rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                 fill="currentColor" class="bi bi-instagram text-white" viewBox="0 0 16 16">
                                 <path
@@ -306,7 +306,7 @@
                             </svg>
                         </a>
                         <div class="vr text-white" style="opacity: 1;"></div>
-                        <a class="external-links" href="http://" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank" rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                 fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                 <path

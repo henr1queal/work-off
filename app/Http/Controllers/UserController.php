@@ -16,17 +16,20 @@ class UserController extends Controller
 
     public function show($id)
     {
-        // Encontra o usuário pelo ID
-        $user = User::with([
-            'phones',
-            'pix',
-            'instagram'
-        ])->findOrFail($id);
+        $user = User::with(['phones', 'pix', 'instagram'])
+            ->findOrFail($id);
 
-        // Retorna a view com os dados do usuário
-        return view('user', compact('user'));
+        // Verifica se o usuário tem planos com expires_at > now
+        $hasValidPlans = $user->plans()->where('expires_at', '>', now())->exists();
+
+        $name = $user->name;
+        // Retorna a view com os dados do usuário e o nome
+        if($hasValidPlans) {
+            return view('user', compact(['user', 'name']));
+        } else {
+            return view('user', compact('name'));
+        }
     }
-
 
     public function store(Request $request)
     {
@@ -174,12 +177,12 @@ class UserController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            
+
             // Remover a imagem carregada se algo der errado
             if (isset($imagePath) && Storage::exists($imagePath)) {
                 Storage::delete($imagePath);
             }
-            
+
             dd($th->getMessage());
             return redirect()->route('faq')->with('error', 'Erro.');
             Log::error('Erro ao criar usuário: ' . $th->getMessage(), ['exception' => $th]);
