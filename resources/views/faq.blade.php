@@ -251,8 +251,7 @@
                     data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
                         Sim, você pode atualizar as informações do seu site sempre que desejar. Basta enviar um e-mail
-                        para edite@workoff.com.br com o link do seu QR Code a partir do e-mail cadastrado, ou entrar em
-                        contato via WhatsApp pelo número (82) 9 9999-9999, utilizando o número que você registrou.
+                        para suporte@workoff.com.br com o nome completo, e-mail cadastrado e data de nascimento.
                     </div>
                 </div>
             </div>
