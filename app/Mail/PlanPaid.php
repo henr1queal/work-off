@@ -16,10 +16,15 @@ class PlanPaid extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $name;
+    public $expiresAt;
+    public $userId;
+
+    public function __construct($name, $expiresAt, $userId)
     {
-        //
-    }
+        $this->expiresAt = $expiresAt;
+        $this->userId = $userId;
+    }   
 
     /**
      * Get the message envelope.
@@ -27,7 +32,7 @@ class PlanPaid extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Plan Paid',
+            subject: 'Pagamento efetuado!',
         );
     }
 
@@ -37,7 +42,12 @@ class PlanPaid extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'about',
+            view: 'mail.welcome',
+            with: [
+                'name' => $this->name,
+                'expiresAt' => $this->expiresAt,
+                'userId' => $this->userId,
+            ],
         );
     }
 

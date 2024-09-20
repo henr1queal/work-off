@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Mail\PlanPaid;
 use App\Models\Plan;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -198,11 +197,12 @@ class MercadoPagoController extends Controller
             ->first();
 
         $user = $planWithUser->users->first();
-        $pivotData = $user->pivot;
 
         if (!$user) {
-            return;
+            return response()->json(['message' => 'Usuário não encontrado'], 404);
         }
+
+        $pivotData = $user->pivot;
 
         try {
             DB::beginTransaction();
@@ -227,13 +227,19 @@ class MercadoPagoController extends Controller
                     $new_time = now()->addDays(365);
                 }
 
+                // Atualiza a data de expiração na tabela pivot
                 $user->plans()->updateExistingPivot($planWithUser->id, [
                     'expires_at' => $new_time,
                 ]);
+
                 $pivotData->updated_at = now();
                 $pivotData->save();
 
-                Mail::to($user->email)->send(new PlanPaid());
+                // Formata a data para o e-mail
+                $expiresAtFormatted = $new_time->format('d/m/Y');
+
+                // Envia o e-mail com os parâmetros desejados
+                Mail::to($user->email)->send(new PlanPaid($user->name, $expiresAtFormatted, $user->id));
 
                 DB::commit();
             } else {
