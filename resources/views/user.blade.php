@@ -2,6 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QWZJPF3S23"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-QWZJPF3S23');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $name }} - Work Off</title>
@@ -178,9 +190,11 @@
                 <div class="row">
                     <div class="col text-center text-light">
                         <img src="{{ asset('/images/core/logo.png') }}" alt="Work Off" style="max-width: 160px;">
-                        <h5 class="mt-5">{{ $name }} está sem um plano ativo!</h5>                        
-                        <h5 class="mt-4">Caso precise reativá-lo, basta <a href="{{ route('home') }}">clicar aqui</a> e efetuar novamente o pagamento com o e-mail registrado anteriormente.</h5>
-                        <h6 class="mt-5">Se tiver alguma dúvida, entrar em contato com <a href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></h6>
+                        <h5 class="mt-5">{{ $name }} está sem um plano ativo!</h5>
+                        <h5 class="mt-4">Caso precise reativá-lo, basta <a href="{{ route('home') }}">clicar aqui</a>
+                            e efetuar novamente o pagamento com o e-mail registrado anteriormente.</h5>
+                        <h6 class="mt-5">Se tiver alguma dúvida, entrar em contato com <a
+                                href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></h6>
                     </div>
                 </div>
             </div>

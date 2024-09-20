@@ -2,6 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QWZJPF3S23"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-QWZJPF3S23');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work Off - Crie seu QR Code Exclusivo</title>
@@ -204,8 +216,8 @@
     <div id="nav-spacing"></div>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid" style="max-width: 1320px;">
-            <a class="navbar-brand" href="#"><img src="{{ asset('/images/core/logo.png') }}"
-                    alt="" class="img-fluid" style="max-width: 80px;"></a>
+            <a class="navbar-brand" href="#"><img src="{{ asset('/images/core/logo.png') }}" alt=""
+                    class="img-fluid" style="max-width: 80px;"></a>
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -408,8 +420,8 @@
 
                 <div id="preview" class="profile-container p-0">
                     <div class="profile-header bg-primary text-white p-3" style="border-radius: 8px 8px 0px 0px;">
-                        <img src="{{ asset('/images/core/avatar.png') }}" id="previewImage"
-                            alt="Foto do Motorista" class="profile-img rounded-circle" style="max-width: 100px;">
+                        <img src="{{ asset('/images/core/avatar.png') }}" id="previewImage" alt="Foto do Motorista"
+                            class="profile-img rounded-circle" style="max-width: 100px;">
                         <h1 class="profile-name text-white h2 mt-1" id="previewNome"></h1>
                         <h4 id="ageDisplay"></h4>
                         <hr class="w-25 mx-auto mb-2" style="opacity: 1;">
@@ -506,7 +518,8 @@
                 </div>
                 <div class="col-12 col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end align-items-center">
-                        <a class="external-links" href="https://www.instagram.com/workoff.com.br/" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="https://www.instagram.com/workoff.com.br/" target="_blank"
+                            rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                 fill="currentColor" class="bi bi-instagram text-white" viewBox="0 0 16 16">
                                 <path
@@ -515,7 +528,8 @@
                             </svg>
                         </a>
                         <div class="vr text-white" style="opacity: 1;"></div>
-                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank"
+                            rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                 fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                 <path
@@ -551,7 +565,7 @@
         let previewCanShow = 0;
 
         function updatePreview() {
-            if(previewCanShow === 1) {
+            if (previewCanShow === 1) {
                 $('#previewButton').show()
             }
 
@@ -635,31 +649,31 @@
         }
 
         // Adiciona o destaque ao plano selecionado inicialmente (se houver um old)
-        
+
         $(document).ready(function() {
             $('#first_phone, #first_phone_type').on('input change', function() {
                 updateFormData('phone1', $('#first_phone').val());
                 updateFormData('phone1_type', $('#first_phone_type').val());
                 updatePreview();
             });
-            
+
             $('#seccond_phone, #seccond_phone_type').on('input change', function() {
                 updateFormData('phone2', $('#seccond_phone').val());
                 updateFormData('phone2_type', $('#seccond_phone_type').val());
                 updatePreview();
             });
-            
+
             $('#dataNascimento').on('change', function() {
                 updateAgeDisplay();
             });
-            
+
             updateAgeDisplay();
-            
+
             $('.telefone').mask('00 0 0000-0000');
-            
+
             $('#exibir-instagram').change(function() {
                 $('#instagramInput').toggle(this.checked);
-                
+
                 if (this.checked) {
                     updateFormData('instagram', $('#instagram').val());
                     $('#instagramSection').show();
@@ -669,10 +683,10 @@
                 }
                 updatePreview();
             });
-            
+
             $('#exibir-pix').change(function() {
                 $('#pix').toggle(this.checked);
-                
+
                 if (this.checked) {
                     updateFormData('pix_key', $('#chavePix').val());
                     $('#pixSection').show();
@@ -682,53 +696,53 @@
                 }
                 updatePreview();
             });
-            
+
             $('#nome').on('input', function() {
                 updateFormData('name', $(this).val());
                 updatePreview();
             });
-            
+
             $('#dataNascimento').on('change', function() {
                 updateFormData('birthdate', $(this).val());
                 updatePreview();
             });
-            
+
             $('#email').on('input', function() {
                 updateFormData('email', $(this).val());
             });
-            
+
             $('#descricao').on('input', function() {
                 updateFormData('message', $(this).val());
                 updatePreview();
             });
-            
+
             $('#foto').on('change', function() {
                 if (this.files && this.files[0]) {
                     updateFormData('image', this.files[0]);
                     $('#previewImage').attr('src', URL.createObjectURL(this.files[0]));
                 }
             });
-            
+
             $('#first_phone').on('input', function() {
                 updateFormData('phone1', $(this).val());
                 updatePreview();
             });
-            
+
             $('#first_phone_type').on('change', function() {
                 updateFormData('phone1_type', $(this).val());
                 updatePreview();
             });
-            
+
             $('#seccond_phone').on('input', function() {
                 updateFormData('phone2', $(this).val());
                 updatePreview();
             });
-            
+
             $('#seccond_phone_type').on('change', function() {
                 updateFormData('phone2_type', $(this).val());
                 updatePreview();
             });
-            
+
             $('#instagram').on('input', function() {
                 if ($('#exibir-instagram').is(':checked')) {
                     updateFormData('instagram', $(this).val());
@@ -739,7 +753,7 @@
                 }
                 updatePreview();
             });
-            
+
             $('#chavePix').on('input', function() {
                 if ($('#exibir-pix').is(':checked')) {
                     updateFormData('pix_key', $(this).val());
@@ -750,21 +764,21 @@
                 }
                 updatePreview();
             });
-            
+
             $('input[name="plano"]').on('change', function() {
                 updateFormData('plan', $(this).val());
             });
-            
+
             $('.plan-card').on('click', function() {
                 $('.plan-card').removeClass('highlight position-relative');
                 $('.plan-card .highlight-badge').remove();
-                
+
                 $(this).addClass('highlight position-relative');
                 $(this).prepend('<span class="highlight-badge">Selecionado</span>');
-                
+
                 $(this).find('.form-check-input').prop('checked', true).trigger('change');
             });
-            
+
             $('#previewChavePix').on('click', function() {
                 const pixKey = $(this).text();
                 navigator.clipboard.writeText(pixKey).then(function() {
@@ -773,7 +787,7 @@
                     console.error('Erro ao copiar para o clipboard: ', err);
                 });
             });
-            
+
             updateFormData('name', $('#nome').val());
             updateFormData('birthdate', $('#dataNascimento').val());
             updateFormData('email', $('#email').val());
@@ -784,15 +798,15 @@
             updateFormData('phone2_type', $('#seccond_phone_type').val());
             updateFormData('instagram', $('#instagram').val());
             updateFormData('pix_key', $('#chavePix').val());
-            
+
             if (formData['image']) {
                 $('#previewImage').attr('src', URL.createObjectURL(formData['image']));
             }
-            
+
             updatePreview();
             highlightSelectedPlan();
         });
-        </script>
+    </script>
 </body>
 
 </html>

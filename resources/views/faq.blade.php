@@ -2,6 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QWZJPF3S23"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-QWZJPF3S23');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Work Off</title>
@@ -266,7 +278,8 @@
                     data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
                         Sim, você tem até 7 dias após o pagamento para experimentar nosso serviço. Se não estiver
-                        satisfeito, pode solicitar o cancelamento sem nenhum custo adicional. Seu estorno será efetuado em até 3 dias úteis.
+                        satisfeito, pode solicitar o cancelamento sem nenhum custo adicional. Seu estorno será efetuado
+                        em até 3 dias úteis.
                     </div>
                 </div>
             </div>
@@ -296,7 +309,8 @@
                 </div>
                 <div class="col-12 col-lg-4 text-center text-lg-end mt-3 mt-lg-0">
                     <div class="d-flex gap-2 justify-content-center justify-content-lg-end align-items-center">
-                        <a class="external-links" href="https://www.instagram.com/workoff.com.br/" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="https://www.instagram.com/workoff.com.br/" target="_blank"
+                            rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                 fill="currentColor" class="bi bi-instagram text-white" viewBox="0 0 16 16">
                                 <path
@@ -305,7 +319,8 @@
                             </svg>
                         </a>
                         <div class="vr text-white" style="opacity: 1;"></div>
-                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank" rel="noopener noreferrer">
+                        <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank"
+                            rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                 fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                 <path
