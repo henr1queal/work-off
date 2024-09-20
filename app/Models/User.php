@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function plans(): BelongsToMany
     {
-        return $this->belongsToMany(Plan::class)->withPivot(['external_reference', 'expires_at']);
+        return $this->belongsToMany(Plan::class, 'plan_user')->withPivot(['expires_at', 'external_reference']);
     }
 
     /**

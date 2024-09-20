@@ -187,10 +187,11 @@ class MercadoPagoController extends Controller
         }
 
         $planWithUser = Plan::whereHas('users', function ($query) use ($payment_id) {
-            $query->wherePivot('external_reference', $payment_id);
+            $query->where('external_reference', $payment_id);
         })
             ->with(['users' => function ($query) use ($payment_id) {
-                $query->wherePivot(['external_reference' => $payment_id, 'expires_at' => null])
+                $query->where('external_reference', $payment_id)
+                    ->whereNull('expires_at') // Verifica se expires_at é nulo
                     ->orderBy('plan_user.created_at', 'desc')
                     ->limit(1);
             }])
@@ -226,7 +227,9 @@ class MercadoPagoController extends Controller
                     $new_time = now()->addDays(365);
                 }
 
-                $pivotData->expires_at = $new_time;
+                $user->plans()->updateExistingPivot($planWithUser->id, [
+                    'expires_at' => $new_time,
+                ]);
                 $pivotData->updated_at = now();
                 $pivotData->save();
 
