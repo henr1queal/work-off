@@ -236,7 +236,7 @@ class MercadoPagoController extends Controller
                 $pivotData->save();
 
                 // Formata a data para o e-mail
-                $expiresAtFormatted = $new_time->format('d/m/Y');
+                $expiresAtFormatted = $new_time->format('d/m/Y H:i');
 
                 // Envia o e-mail com os parâmetros desejados
                 Mail::to($user->email)->send(new PlanPaid($user->name, $expiresAtFormatted, $user->id));

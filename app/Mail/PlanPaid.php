@@ -22,6 +22,7 @@ class PlanPaid extends Mailable
 
     public function __construct($name, $expiresAt, $userId)
     {
+        $this->name = $name;
         $this->expiresAt = $expiresAt;
         $this->userId = $userId;
     }   
