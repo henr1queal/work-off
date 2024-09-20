@@ -306,16 +306,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
             integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            function copyPix() {
-                const pixKey = '{{ $user->pix->key }}';
-                navigator.clipboard.writeText(pixKey).then(function() {
-                    alert('Chave Pix copiada!');
-                }, function(err) {
-                    console.error('Erro ao copiar: ', err);
-                });
-            }
-        </script>
+        @if ($user->pix)
+            <script>
+                function copyPix() {
+                    const pixKey = '{{ $user->pix->key }}';
+                    navigator.clipboard.writeText(pixKey).then(function() {
+                        alert('Chave Pix copiada!');
+                    }, function(err) {
+                        console.error('Erro ao copiar: ', err);
+                    });
+                }
+            </script>
+        @endif
         <script>
             const qrCodeElement = document.getElementById("qrcode");
             const qrCode = new QRCode(qrCodeElement, {
