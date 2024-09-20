@@ -276,7 +276,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function copyPix() {
-            const pixKey = 'SUA_CHAVE_PIX_AQUI';
+            const pixKey = '{{ $user->pix->key }}';
             navigator.clipboard.writeText(pixKey).then(function() {
                 alert('Chave Pix copiada!');
             }, function(err) {
