@@ -177,12 +177,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col text-center">
-                        <span class="text-white">Imprima seu QR Code agora mesmo e comece a fazer grana particular!
-                            💰</span>
+                        
+                        <span class="text-white"><a id="downloadLink" class="d-inline">Clique aqui</a> para baixar o QR Code e começar a <strong class="text-success">ganhar mais dinheiro</strong>!</span>
                         <div class="rounded-3 p-3 bg-white mt-3 mx-auto" style="width: fit-content;">
-                            <div id="qrcode" ></div>
+                            <div id="qrcode"></div>
                         </div>
-                        <small class="text-white">Não se preocupe, somente você está vendo este QR Code.</small>
+                        <br><span class="text-white">Caso tenha alguma dúvida, envie um e-mail para <a href="mailto:suporte@workoff.com.br">suporte@workoff.com.br</a></span>
+                        <br><small class="text-white">**QR code visível apenas por {{ $user->name }}.</small>
                     </div>
                 </div>
             </div>
@@ -236,7 +237,7 @@
                     </div>
                 @endif
                 @if ($user->pix)
-                    <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center text-lg-start">
+                    <div class="col-12 col-lg mt-3 mt-lg-0 text-center text-lg-start">
                         <div class="info-card shadow h-100">
                             <div class="info-icon mb-1"><i class="fas fa-money-bill-wave"></i></div>
                             <div class="mb-2"><span class="text-black fw-medium">Chave Pix</span></div>
@@ -284,11 +285,21 @@
             });
         }
     </script>
-    <script type="text/javascript">
-        new QRCode(document.getElementById("qrcode"), {
+    <script>
+        const qrCodeElement = document.getElementById("qrcode");
+        const qrCode = new QRCode(qrCodeElement, {
             text: "{{ route('user', $user->id) }}",
             width: 350,
             height: 350,
+            correctLevel: QRCode.CorrectLevel.H,
+            render: "canvas"
+        });
+
+        qrCodeElement.querySelector('canvas').toBlob(function(blob) {
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'qrcode.png';
+            downloadLink.style.display = 'block';
         });
     </script>
 </body>
