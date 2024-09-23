@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('lp');
 })->name('home');
 Route::get('/faq', function () {
     return view('faq');
@@ -27,6 +27,10 @@ Route::get('/about', function () {
 Route::get('/user', function () {
     return view('user');
 })->name('user');
+
+Route::get('/teste', function () {
+    return view('lp');
+})->name('lp');
 
 Route::get('/qr-code/{user_id}/{status?}', [UserController::class, 'show'])->name('user');
 
