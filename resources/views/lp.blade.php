@@ -185,6 +185,7 @@
         }
 
         .parallax {
+            min-height: 500px;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
