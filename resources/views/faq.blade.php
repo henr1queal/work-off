@@ -16,7 +16,29 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - Work Off</title>
+    <!-- Primary Meta Tags -->
+    <title>Work Off — Perguntas frequentes.</title>
+    <meta name="title" content="Work Off — Perguntas frequentes." />
+    <meta name="description"
+        content="Descubra aqui algumas das perguntas mais frequentes sobre nosso serviço." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workoff.com.br" />
+    <meta property="og:title" content="Work Off — Perguntas frequentes." />
+    <meta property="og:description"
+        content="Descubra aqui algumas das perguntas mais frequentes sobre nosso serviço." />
+    <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://workoff.com.br" />
+    <meta property="twitter:title" content="Work Off — Perguntas frequentes." />
+    <meta property="twitter:description"
+        content="Descubra aqui algumas das perguntas mais frequentes sobre nosso serviço." />
+    <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
+    <!-- Meta Tags Generated with https://metatags.io -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>

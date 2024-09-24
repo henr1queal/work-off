@@ -16,7 +16,29 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre a Work Off</title>
+    <!-- Primary Meta Tags -->
+    <title>Work Off — Sobre a Work Off.</title>
+    <meta name="title" content="Work Off — Sobre a Work Off." />
+    <meta name="description"
+        content="Com o Work Off, você cria um site de apresentação profissional, proporcionando uma experiência mais personalizada e direta aos seus passageiros." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workoff.com.br" />
+    <meta property="og:title" content="Work Off — Sobre a Work Off." />
+    <meta property="og:description"
+        content="Com o Work Off, você cria um site de apresentação profissional, proporcionando uma experiência mais personalizada e direta aos seus passageiros." />
+    <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://workoff.com.br" />
+    <meta property="twitter:title" content="Work Off — Sobre a Work Off." />
+    <meta property="twitter:description"
+        content="Com o Work Off, você cria um site de apresentação profissional, proporcionando uma experiência mais personalizada e direta aos seus passageiros." />
+    <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
+    <!-- Meta Tags Generated with https://metatags.io -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -192,8 +214,8 @@
                         <div class="vr text-white" style="opacity: 1;"></div>
                         <a class="external-links" href="mailto:suporte@vagasmaceio.com.br" target="_blank"
                             rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                class="bi bi-envelope text-white" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                fill="currentColor" class="bi bi-envelope text-white" viewBox="0 0 16 16">
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z">
                                 </path>

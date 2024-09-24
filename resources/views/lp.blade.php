@@ -16,7 +16,25 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Off - Crie seu QR Code Exclusivo</title>
+    <title>Work Off — Conecte-se diretamente com seus passageiros.</title>
+    <meta name="title" content="Work Off — Conecte-se diretamente com seus passageiros." />
+    <meta name="description"
+        content="Nosso objetivo é facilitar a conexão direta entre motoristas e passageiros, eliminando intermediários e as altas taxas cobradas pela Uber, 99, dentre outros." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workoff.com.br" />
+    <meta property="og:title" content="Work Off — Conecte-se diretamente com seus passageiros." />
+    <meta property="og:description"
+        content="Nosso objetivo é facilitar a conexão direta entre motoristas e passageiros, eliminando intermediários e as altas taxas cobradas pela Uber, 99, dentre outros." />
+    <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://workoff.com.br" />
+    <meta property="twitter:title" content="Work Off — Conecte-se diretamente com seus passageiros." />
+    <meta property="twitter:description"
+        content="Nosso objetivo é facilitar a conexão direta entre motoristas e passageiros, eliminando intermediários e as altas taxas cobradas pela Uber, 99, dentre outros." />
+    <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
