@@ -301,6 +301,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <a href="#form" class="btn btn-light btn-lg"><strong>Quero meu QR Code agora</strong></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -338,6 +343,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <a href="#form" class="btn btn-primary btn-lg"><strong>Quero meu QR Code agora</strong></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -366,6 +376,11 @@
                                 <footer class="blockquote-footer">Ana Souza, motorista de aplicativo</footer>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <a href="#form" class="btn btn-light btn-lg"><strong>Quero meu QR Code agora</strong></a>
                     </div>
                 </div>
             </div>
@@ -598,6 +613,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <a href="#form" class="btn btn-primary btn-lg"><strong>Quero meu QR Code agora</strong></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -607,7 +627,7 @@
             <h2 class="mb-4">Não perca tempo! Aumente seus lucros agora mesmo</h2>
             <p class="lead mb-4">Preencha o formulário abaixo e comece a desfrutar dos benefícios de conectar-se
                 diretamente com seus passageiros.</p>
-            <a href="#form" class="btn btn-light btn-lg"><strong>Quero gerar meu QR Code agora</strong></a>
+            <a href="#form" class="btn btn-light btn-lg"><strong>Quero meu QR Code agora</strong></a>
         </div>
     </section>
 
