@@ -343,7 +343,7 @@
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="parallax"
-        style="background-image: url('../../images/core/testimonials.webp');">
+        style="background-image: url('../../images/core/testimonials.webp'); min-height: auto;">
         <div class="overlay py-5">
             <div class="container">
                 <h2 class="text-center text-white mb-5">Depoimentos de motoristas satisfeitos</h2>
