@@ -8,11 +8,40 @@ use App\Models\Pix;
 use App\Models\Instagram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+
+    private function brevo(string $nome, string $email)
+    {
+        $apiKey = env('BREVO_API_KEY');
+        $listId = 7;
+
+        $data = [
+            "email" => $email,
+            "attributes" => [
+                "NOME" => $nome,
+            ],
+            "listIds" => [$listId],
+            "updateEnabled" => true
+        ];
+
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'api-key' => $apiKey,
+            'content-type' => 'application/json',
+        ])->post('https://api.brevo.com/v3/contacts', $data);
+
+        if ($response->successful()) {
+            return;
+        } else {
+            Log::error('Erro ao adicionar lead', ['nome' => $nome, 'email' => $email]);
+            return;
+        }
+    }
 
     public function show($id)
     {
@@ -24,7 +53,7 @@ class UserController extends Controller
 
         $name = $user->name;
         // Retorna a view com os dados do usuário e o nome
-        if($hasValidPlans) {
+        if ($hasValidPlans) {
             return view('user', compact(['user', 'name']));
         } else {
             return view('user', compact('name'));
@@ -49,6 +78,8 @@ class UserController extends Controller
         ]);
 
         DB::beginTransaction();
+
+        $this->brevo($request->name, $request->email);
 
         try {
             if ($request->hasFile('image')) {
