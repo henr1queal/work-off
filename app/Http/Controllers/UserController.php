@@ -79,8 +79,6 @@ class UserController extends Controller
 
         DB::beginTransaction();
 
-        $this->brevo($request->name, $request->email);
-
         try {
             if ($request->hasFile('image')) {
                 $timestamp = now()->timestamp;
@@ -160,6 +158,8 @@ class UserController extends Controller
                 }
                 $user->plans()->attach($request->plan, ['created_at' => now()]);
             } else {
+                $this->brevo($request->name, $request->email);
+                
                 // Criar novo usuário e associar plano
                 $user = User::create([
                     'email' => $request->input('email'),
