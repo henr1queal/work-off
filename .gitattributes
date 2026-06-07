@@ -1,6 +1,10 @@
 * text=auto eol=lf
 
-*.blade.php diff=html
+*.blade.php diff=html linguist-language=PHP
+resources/js/** linguist-vendored
+resources/css/** linguist-vendored
+public/** linguist-vendored
+composer.lock linguist-generated
 *.css diff=css
 *.html diff=html
 *.md diff=markdown
